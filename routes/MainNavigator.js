@@ -31,7 +31,7 @@ const MainNavigator = () => {
             <Stack.Screen name='Arquivadas' component={Arquivadas} options={{ headerShown: false}} />
             <Stack.Screen name='Configuracoes' component={Configuracoes} options={{ headerShown: false}} />
             <Stack.Screen name='EditarPerfil' component={EditarPerfil} options={{ headerShown: false}} />
-            <Stack.Screen name='EditarSenha' component={EditarSenha} />
+            <Stack.Screen name='EditarSenha' component={EditarSenha} options={{ headerShown: false}} />
             <Stack.Screen name='Galeria' component={Galeria} options={{ headerShown: false}} />
             <Stack.Screen name='Mensagem' component={Mensagem} options={{ headerShown: false}} />
             <Stack.Screen name='Menu' component={Menu} options={{ headerShown: false}} />

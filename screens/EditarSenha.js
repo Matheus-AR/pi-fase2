@@ -20,7 +20,7 @@ const EditarSenha = ({ navigation }) => {
       }}
       source={require("../assets/telalogin.png")}
     >
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
       <Image
         style={{ position: "relative", top: -220, left: -135 }}
         source={require("../assets/btnVoltar.png")}
@@ -64,7 +64,7 @@ const EditarSenha = ({ navigation }) => {
           secureTextEntry={true}
         />
 
-        <TouchableOpacity onPress={()=>navigation.goBack()}>
+        <TouchableOpacity onPress={() => {}}>
         <Text
           style={{
             backgroundColor: "#D9D9D9",

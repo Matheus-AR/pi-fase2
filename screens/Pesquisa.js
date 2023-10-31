@@ -2,7 +2,7 @@ import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 
 const Pesquisa = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, justifyContent: "flex-start", paddingTop: 20 }}>
+    <View style={{ flex: 1, justifyContent: "flex-start", paddingTop: 40 }}>
       <View
         style={{
           flex: 6 / 100,
@@ -18,7 +18,9 @@ const Pesquisa = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {/*Barra de pesquisa */}
-      <View style={{ flex: 6 / 100, flexDirection: "row", alignItems: 'center' }}>
+      <View
+        style={{ flex: 6 / 100, flexDirection: "row", alignItems: "center" }}
+      >
         <TextInput
           placeholder={"Pesquisar"}
           style={{
@@ -26,20 +28,22 @@ const Pesquisa = ({ navigation }) => {
             width: "80%",
             borderRadius: 20,
             paddingHorizontal: 10,
-            marginHorizontal: 20
+            marginHorizontal: 20,
           }}
         />
-        <Image
-          source={require("../assets/search_outline.png")}
-          style={{
-            width: 20,
-            height: 20,
-          }}
-        />
+        <TouchableOpacity onPress={() => {}}>
+          <Image
+            source={require("../assets/search_outline.png")}
+            style={{
+              width: 20,
+              height: 20,
+            }}
+          />
+        </TouchableOpacity>
       </View>
 
-          {/* Lista resultado da pesquisa */}
-          <View style={{ flex: 82/100 }}></View>
+      {/* Lista resultado da pesquisa */}
+      <View style={{ flex: 82 / 100 }}></View>
       {/* Footer */}
       <View
         style={{

@@ -78,18 +78,18 @@ const Configuracoes = ({ route, navigation }) => {
           justifyContent: "space-between",
         }}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Pesquisa')}>
           <Image
             style={{ marginLeft: 10 }}
             source={require("../assets/search_outline.png")}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Galeria')}>
           <Image source={require("../assets/plus_circle.png")} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
           <Image
             style={{ marginRight: 10 }}
             source={require("../assets/person.png")}
