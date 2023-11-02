@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import {
   View,
@@ -10,10 +10,13 @@ import {
   StatusBar,
 } from "react-native";
 
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = ({ route, navigation }) => {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
+
+  const { login } = useContext(AuthContext);
 
   return (
     <ImageBackground
@@ -119,7 +122,7 @@ const Login = ({ route, navigation }) => {
             Cadastre-se
           </Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
+          <TouchableOpacity onPress={() => login()}>
             <Text
               style={{
                 backgroundColor: "#D9D9D9",

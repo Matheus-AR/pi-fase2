@@ -1,21 +1,23 @@
-import React from 'react';
+import { useContext } from "react";
 import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 
+import { AuthContext } from "../contexts/AuthContext";
 
 const Perfil = ({ navigation }) => {
-    
+  const { logout } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1, justifyContent: "flex-start", paddingTop: 20 }}>
       {/* Header */}
       <View
         style={{
-          flex: 6/100,
+          flex: 6 / 100,
           flexDirection: "row",
           justifyContent: "space-between",
           paddingTop: 20,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => logout()}>
           <Image
             source={require("../assets/logout_icon.png")}
             style={{ width: 30, height: 30, marginLeft: 40 }}
@@ -33,7 +35,7 @@ const Perfil = ({ navigation }) => {
       {/* Informação do perfil*/}
       <View
         style={{
-          flex: 20/100,
+          flex: 20 / 100,
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
@@ -54,12 +56,12 @@ const Perfil = ({ navigation }) => {
       </View>
 
       {/* Menu e as fotos postadas */}
-      <View style={{ flex: 68/100, }}>
+      <View style={{ flex: 68 / 100 }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={{ margin: 20, marginLeft: 175, fontWeight: "bold" }}>
             FEED
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+          <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
             <Image
               source={require("../assets/menu_icon.png")}
               style={{ margin: 20 }}
@@ -129,7 +131,7 @@ const Perfil = ({ navigation }) => {
       {/* Footer */}
       <View
         style={{
-          flex: 6/100,
+          flex: 6 / 100,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
