@@ -78,10 +78,10 @@ const EsqueciASenha = ({ navigation }) => {
             E-mail
           </Text>
           <TextInput
-            keyboardType="default"
+            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+            onChangeText={(text) => setEmail(text)}
             value={email}
-            onChanceText={(text) => setEmail(text)}
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch" }}
+            keyboardType="email-address"
           />
 
           <TouchableOpacity onPress={() => enviarEmail()}>

@@ -1,3 +1,4 @@
+import { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -10,13 +11,25 @@ import {
   Alert,
 } from "react-native";
 
+import { UserContext } from '../contexts/userContext';
+
+
 const Cadastro = ({ navigation }) => {
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [repetirSenha, setRepetirSenha] = useState('');
+
+    const { adicionar } = useContext(UserContext);
+    
     function cadastrarUsuario() {
-        Alert.alert(
-            "Usuário cadastrado",
-            "Usuário cadastrado com sucesso."
-        );
-    }
+        if (senha === repetirSenha) {
+            Alert.alert(
+                "Usuário cadastrado",
+                "Usuário cadastrado com sucesso."
+            );
+        }
+    };
   return (
     <ImageBackground
       style={{
@@ -68,18 +81,30 @@ const Cadastro = ({ navigation }) => {
           <Text style={{ alignSelf: "stretch", fontSize: 16, fontWeight: 'bold' }}>Usuário</Text>
           <TextInput
             style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+            keyboardType='default'
+            value={nome}
+            onChangeText={(text) => setNome(text)}
           />
           <Text style={{ alignSelf: "stretch" }}>E-mail</Text>
           <TextInput
             style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+            keyboardType='email-address'
+            value={email}
+            onChangeText={(text) => setEmail(text)}
           />
           <Text style={{ alignSelf: "stretch" }}>Senha</Text>
           <TextInput
             style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={(text) => setSenha(text)}
           />
           <Text style={{ alignSelf: "stretch" }}>Digite a senha novamente</Text>
           <TextInput
             style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+            secureTextEntry={true}
+            value={repetirSenha}
+            onChangeText={(text) => setRepetirSenha(text)}
           />
           <TouchableOpacity onPress={ cadastrarUsuario }>
             <Text
