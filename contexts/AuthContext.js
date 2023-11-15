@@ -3,18 +3,17 @@ import { useState, createContext } from 'react';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [logado, setLogado] = useState(false);
-
-    const login = () => {
-        setLogado(true);
+    
+    const [usuario, setUsuario] = useState({logado: false});
+    const login = (nome, senha) => {
+        setUsuario({ nome, logado: true });
     }
 
     const logout = () => {
-        setLogado(false);
+        setUsuario({ logado: false })
     }
-    const { usuario, setUsuario } = useState();
     return (
-        <AuthContext.Provider value={{ logado, login, logout }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ usuario, login, logout }}>{children}</AuthContext.Provider>
     )
 }
 

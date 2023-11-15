@@ -9,15 +9,31 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { HelperText } from "react-native-paper";
 
 import { AuthContext } from "../contexts/AuthContext";
 
 const Login = ({ route, navigation }) => {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = (data) => {
+    const { nome, senha} = data;
+    login(nome, senha);
+  };
   const { login } = useContext(AuthContext);
 
+  const rulesNome = {
+    required: { value: true, message: "O nome é obrigatório" },
+    minLength: { value: 3, message: "Número de caracteres min é 3" },
+  };
+  const rulesSenha = {
+    required: { value: true, message: "A senha é obrigatória"}
+  }
   return (
     <ImageBackground
       style={{
@@ -28,7 +44,7 @@ const Login = ({ route, navigation }) => {
       resizeMode="stretch"
     >
       {/* Botão voltar */}
-      <View style={{ flex: 35/100 }}>
+      <View style={{ flex: 35 / 100 }}>
         <TouchableOpacity
           style={{
             alignItems: "flex-end",
@@ -45,14 +61,14 @@ const Login = ({ route, navigation }) => {
       </View>
 
       {/* Caixa com campos de entrada */}
-      <View style={{ flex: 50 / 100, alignItems: 'center', }}>
+      <View style={{ flex: 55 / 100, alignItems: "center" }}>
         <View
           style={{
-            justifyContent: 'center',
+            justifyContent: "center",
             alignItems: "center",
             backgroundColor: "white",
             width: 270,
-            height: 300,
+            height: 320,
             padding: 12,
             borderRadius: 20,
           }}
@@ -72,25 +88,51 @@ const Login = ({ route, navigation }) => {
           <Text
             style={{ alignSelf: "stretch", fontSize: 16, fontWeight: "bold" }}
           >
-            Usuário
+            Nome
           </Text>
-          <TextInput
-            keyboardType="default"
-            value={email}
-            onChanceText={(text) => setEmail(text)}
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
+          <Controller
+            name="nome"
+            control={control}
+            rules={rulesNome}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                keyboardType="default"
+                value={value}
+                onChangeText={onChange}
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+              />
+            )}
           />
-          <Text
-            style={{ alignSelf: "stretch", fontSize: 16, fontWeight: "bold" }}
-          >
-            Senha
-          </Text>
-          <TextInput
-            value={senha}
-            onChangeText={(text) => setSenha(text)}
-            secureTextEntry={true}
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-          />
+          <HelperText type="error" visible={true}>
+            {errors.nome && errors.nome.message}
+          </HelperText>
+
+          <Text style={{ alignSelf: "stretch", fontSize: 16, fontWeight: "bold" }}>Senha</Text>
+          <Controller
+            name="senha"
+            control={control}
+            rules={rulesSenha}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                secureTextEntry={true}
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+              />
+            )}
+           />
+           <HelperText type='error' visible={true}>
+            {errors.senha && errors.senha.message }
+           </HelperText>
+
           <Text
             style={{
               alignSelf: "flex-start",
@@ -122,7 +164,7 @@ const Login = ({ route, navigation }) => {
             Cadastre-se
           </Text>
 
-          <TouchableOpacity onPress={() => login()}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <Text
               style={{
                 backgroundColor: "#D9D9D9",

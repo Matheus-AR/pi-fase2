@@ -11,7 +11,7 @@ import {
   Alert,
 } from "react-native";
 
-import { UserContext } from '../contexts/userContext';
+
 
 
 const Cadastro = ({ navigation }) => {
@@ -20,7 +20,7 @@ const Cadastro = ({ navigation }) => {
     const [senha, setSenha] = useState('');
     const [repetirSenha, setRepetirSenha] = useState('');
 
-    const { adicionar } = useContext(UserContext);
+    
     
     function cadastrarUsuario() {
         if (senha === repetirSenha) {

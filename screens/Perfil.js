@@ -4,7 +4,7 @@ import { View, Image, Text, TouchableOpacity, ScrollView } from "react-native";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Perfil = ({ navigation }) => {
-  const { logout } = useContext(AuthContext);
+  const { logout, usuario } = useContext(AuthContext);
 
   return (
     <View style={{ flex: 1, justifyContent: "flex-start", paddingTop: 20 }}>
@@ -46,21 +46,15 @@ const Perfil = ({ navigation }) => {
       >
         <Image source={require("../assets/foto_perfil.png")} />
         <View>
-          <Text style={{ fontSize: 16, fontWeight: "bold", paddingLeft: 5 }}>
-            Matheus
-          </Text>
-          <Text style={{ fontSize: 12, paddingLeft: 5 }}>
-            Designer, 23 anos
-          </Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold", paddingLeft: 5 }}>{usuario.nome}</Text>
+          <Text style={{ fontSize: 12, paddingLeft: 5 }}>Designer, 23 anos</Text>
         </View>
       </View>
 
       {/* Menu e as fotos postadas */}
       <View style={{ flex: 68 / 100 }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={{ margin: 20, marginLeft: 175, fontWeight: "bold" }}>
-            FEED
-          </Text>
+          <Text style={{ margin: 20, marginLeft: 175, fontWeight: "bold" }}>FEED</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Menu")}>
             <Image
               source={require("../assets/menu_icon.png")}

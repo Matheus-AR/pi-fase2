@@ -22,31 +22,31 @@ import { AuthContext } from "../contexts/AuthContext";
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const { logado } = useContext(AuthContext);
+  const { usuario } = useContext(AuthContext);
 
   return (
-    <Stack.Navigator>
-      {!logado ? (
+    <Stack.Navigator screenOptions={{ headerShown: false}}>
+      {!usuario.logado ? (
         <>
           <Stack.Screen
             name="GetStarted"
             component={GetStarted}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Cadastro"
             component={Cadastro}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="EsqueciASenha"
             component={EsqueciASenha}
-            options={{ headerShown: false }}
+            
           />
         </>
       ) : (
@@ -54,57 +54,57 @@ const MainNavigator = () => {
           <Stack.Screen
             name="Perfil"
             component={Perfil}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Amigos"
             component={Amigos}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Arquivadas"
             component={Arquivadas}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Configuracoes"
             component={Configuracoes}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="EditarPerfil"
             component={EditarPerfil}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="EditarSenha"
             component={EditarSenha}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Galeria"
             component={Galeria}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Mensagem"
             component={Mensagem}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Menu"
             component={Menu}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="Pesquisa"
             component={Pesquisa}
-            options={{ headerShown: false }}
+            
           />
           <Stack.Screen
             name="TelaAmigo"
             component={TelaAmigo}
-            options={{ headerShown: false }}
+            
           />
         </>
       )}
