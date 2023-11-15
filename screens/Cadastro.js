@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 
+import { UsuarioContext } from '../contexts/UsuarioContext';
 
 
 const Cadastro = ({ navigation }) => {
@@ -20,14 +21,17 @@ const Cadastro = ({ navigation }) => {
     const [senha, setSenha] = useState('');
     const [repetirSenha, setRepetirSenha] = useState('');
 
+    const { criar } = useContext(UsuarioContext);
+
     
     
     function cadastrarUsuario() {
         if (senha === repetirSenha) {
+            criar(nome, email, senha);
             Alert.alert(
-                "Usuário cadastrado",
-                "Usuário cadastrado com sucesso."
-            );
+                'Usuário criado',
+                'Usuário criado com sucesso'
+            )
         }
     };
   return (
