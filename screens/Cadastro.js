@@ -28,7 +28,10 @@ const Cadastro = ({ navigation }) => {
     const { nome, email, senha, repetirSenha } = data;
     if (senha === repetirSenha) {
       criar(nome, email, senha);
-      navigation.pop();
+      Alert.alert(
+        'Usuário criado',
+        'Usuário criado com sucesso.'
+      )
     }
   };
 
