@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,30 +10,49 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { HelperText } from 'react-native-paper';
+import { useForm, Controller } from "react-hook-form";
 
-
-import { UsuarioContext } from '../contexts/UsuarioContext';
-
+import { UsuarioContext } from "../contexts/UsuarioContext";
 
 const Cadastro = ({ navigation }) => {
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [repetirSenha, setRepetirSenha] = useState('');
+  const { criar } = useContext(UsuarioContext);
 
-    const { criar } = useContext(UsuarioContext);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    
-    
-    function cadastrarUsuario() {
-        if (senha === repetirSenha) {
-            criar(nome, email, senha);
-            Alert.alert(
-                'Usuário criado',
-                'Usuário criado com sucesso'
-            )
-        }
-    };
+  const onSubmit = (data) => {
+    const { nome, email, senha, repetirSenha } = data;
+    if (senha === repetirSenha) {
+      criar(nome, email, senha);
+      navigation.pop();
+    }
+  };
+
+  const rulesNome = {
+    required: { value: true, message: "O nome é obrigatório" },
+    minLength: { value: 3, message: "Número de caracteres min é 3" },
+  };
+  const rulesEmail = {
+    required: { value: true, message: "O email é obrigatório" },
+  };
+  const rulesSenha = {
+    required: { value: true, message: "A senha é obrigatória" },
+    minLength: {
+      value: 8,
+      message: "A senha deve ter no mínimo de 8 caracteres",
+    },
+  };
+  const rulesRepetirSenha = {
+    required: { value: true, message: "A confirmação de senha é obrigatória" },
+    minLength: {
+      value: 8,
+      message: "A confirmação de senha deve ter no mínimo de 8 caracteres",
+    },
+  };
   return (
     <ImageBackground
       style={{
@@ -65,7 +84,7 @@ const Cadastro = ({ navigation }) => {
             alignItems: "center",
             backgroundColor: "white",
             width: 270,
-            height: 300,
+            height: 400,
             padding: 12,
             borderRadius: 20,
           }}
@@ -82,35 +101,91 @@ const Cadastro = ({ navigation }) => {
           >
             Cadastro
           </Text>
-          <Text style={{ alignSelf: "stretch", fontSize: 16, fontWeight: 'bold' }}>Usuário</Text>
-          <TextInput
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-            keyboardType='default'
-            value={nome}
-            onChangeText={(text) => setNome(text)}
+          <Text
+            style={{ alignSelf: "stretch", fontSize: 16, fontWeight: "bold" }}
+          >
+            Usuário
+          </Text>
+          <Controller
+            name="nome"
+            control={control}
+            rules={rulesNome}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+                keyboardType="default"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
+          <HelperText type='error' visible={true}>{errors.nome && errors.nome.message}</HelperText>
+
           <Text style={{ alignSelf: "stretch" }}>E-mail</Text>
-          <TextInput
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-            keyboardType='email-address'
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+          <Controller
+            name="email"
+            control={control}
+            rules={rulesEmail}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+                keyboardType="email-address"
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
+          <HelperText type='error' visible={true}>{errors.email && errors.email.message}</HelperText>
+
           <Text style={{ alignSelf: "stretch" }}>Senha</Text>
-          <TextInput
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-            secureTextEntry={true}
-            value={senha}
-            onChangeText={(text) => setSenha(text)}
+          <Controller
+            name="senha"
+            control={control}
+            rules={rulesSenha}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+                secureTextEntry={true}
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
+          <HelperText type='error' visible={true}>{errors.senha && errors.senha.message}</HelperText>
+
           <Text style={{ alignSelf: "stretch" }}>Digite a senha novamente</Text>
-          <TextInput
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-            secureTextEntry={true}
-            value={repetirSenha}
-            onChangeText={(text) => setRepetirSenha(text)}
+          <Controller
+            name="repetirSenha"
+            control={control}
+            rules={rulesRepetirSenha}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+                secureTextEntry={true}
+                value={value}
+                onChangeText={onChange}
+              />
+            )}
           />
-          <TouchableOpacity onPress={ cadastrarUsuario }>
+          <HelperText type='error' visible={true}>{errors.repetirSenha && errors.repetirSenha.message}</HelperText>
+
+          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <Text
               style={{
                 marginTop: 10,
