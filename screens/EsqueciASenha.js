@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Alert } from "react-native";
 import {
   View,
   Text,
@@ -9,10 +8,25 @@ import {
   Platform,
   StatusBar,
   TouchableOpacity,
+  Alert,
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { HelperText } from "react-native-paper";
 
 const EsqueciASenha = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const rulesEmail = {
+    required: { value: true, message: "O email é obrigatório" },
+  };
+
+  const onSubmit = (data) => {
+    enviarEmail();
+  };
 
   const enviarEmail = () => {
     Alert.alert(
@@ -30,9 +44,7 @@ const EsqueciASenha = ({ navigation }) => {
       source={require("../assets/telalogin.png")}
       resizeMode="stretch"
     >
-      <View
-        style={{ flex: 35 / 100 }}
-      >
+      <View style={{ flex: 35 / 100 }}>
         <TouchableOpacity
           style={{
             alignItems: "flex-end",
@@ -77,14 +89,26 @@ const EsqueciASenha = ({ navigation }) => {
           >
             E-mail
           </Text>
-          <TextInput
-            style={{ backgroundColor: "#D9D9D9", alignSelf: "stretch", paddingHorizontal: 5 }}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
-            keyboardType="email-address"
+          <Controller
+            name="email"
+            control={control}
+            rules={rulesEmail}
+            render={({ field: { value, onChange } }) => (
+              <TextInput
+                style={{
+                  backgroundColor: "#D9D9D9",
+                  alignSelf: "stretch",
+                  paddingHorizontal: 5,
+                }}
+                onChangeText={onChange}
+                value={value}
+                keyboardType="email-address"
+              />
+            )}
           />
+          <HelperText type='error' visible={true}>{errors.email && errors.email.message}</HelperText>
 
-          <TouchableOpacity onPress={() => enviarEmail()}>
+          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <Text
               style={{
                 backgroundColor: "#D9D9D9",
