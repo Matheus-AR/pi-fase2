@@ -12,8 +12,13 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         setUsuario({ logado: false })
     }
+
+    const atualizarUsuario = (data) => {
+        const {nome, descricao} = data;
+        setUsuario({nome, descricao, logado: true});
+    }
     return (
-        <AuthContext.Provider value={{ usuario, login, logout }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ usuario, login, logout, atualizarUsuario }}>{children}</AuthContext.Provider>
     )
 }
 

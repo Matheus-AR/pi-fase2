@@ -47,7 +47,7 @@ const Perfil = ({ navigation }) => {
         <Image source={require("../assets/foto_perfil.png")} />
         <View>
           <Text style={{ fontSize: 16, fontWeight: "bold", paddingLeft: 5 }}>{usuario.nome}</Text>
-          <Text style={{ fontSize: 12, paddingLeft: 5 }}>Designer, 23 anos</Text>
+          <Text style={{ fontSize: 12, paddingLeft: 5 }}>{usuario.descricao ? usuario.descricao : ''}</Text>
         </View>
       </View>
 
