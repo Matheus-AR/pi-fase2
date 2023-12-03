@@ -10,13 +10,15 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { HelperText } from 'react-native-paper';
+import { HelperText } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
 
 import { UsuarioContext } from "../contexts/UsuarioContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Cadastro = ({ navigation }) => {
   const { criar } = useContext(UsuarioContext);
+  const { criarUsuario } = useContext(AuthContext);
 
   const {
     control,
@@ -27,11 +29,8 @@ const Cadastro = ({ navigation }) => {
   const onSubmit = (data) => {
     const { nome, email, senha, repetirSenha } = data;
     if (senha === repetirSenha) {
-      criar(nome, email, senha);
-      Alert.alert(
-        'Usuário criado',
-        'Usuário criado com sucesso.'
-      )
+      criarUsuario(nome, email, senha);
+      Alert.alert("Usuário criado", "Usuário criado com sucesso.");
     }
   };
 
@@ -126,7 +125,9 @@ const Cadastro = ({ navigation }) => {
               />
             )}
           />
-          <HelperText type='error' visible={true}>{errors.nome && errors.nome.message}</HelperText>
+          <HelperText type="error" visible={true}>
+            {errors.nome && errors.nome.message}
+          </HelperText>
 
           <Text style={{ alignSelf: "stretch" }}>E-mail</Text>
           <Controller
@@ -146,7 +147,9 @@ const Cadastro = ({ navigation }) => {
               />
             )}
           />
-          <HelperText type='error' visible={true}>{errors.email && errors.email.message}</HelperText>
+          <HelperText type="error" visible={true}>
+            {errors.email && errors.email.message}
+          </HelperText>
 
           <Text style={{ alignSelf: "stretch" }}>Senha</Text>
           <Controller
@@ -166,7 +169,9 @@ const Cadastro = ({ navigation }) => {
               />
             )}
           />
-          <HelperText type='error' visible={true}>{errors.senha && errors.senha.message}</HelperText>
+          <HelperText type="error" visible={true}>
+            {errors.senha && errors.senha.message}
+          </HelperText>
 
           <Text style={{ alignSelf: "stretch" }}>Digite a senha novamente</Text>
           <Controller
@@ -186,7 +191,9 @@ const Cadastro = ({ navigation }) => {
               />
             )}
           />
-          <HelperText type='error' visible={true}>{errors.repetirSenha && errors.repetirSenha.message}</HelperText>
+          <HelperText type="error" visible={true}>
+            {errors.repetirSenha && errors.repetirSenha.message}
+          </HelperText>
 
           <TouchableOpacity onPress={handleSubmit(onSubmit)}>
             <Text
