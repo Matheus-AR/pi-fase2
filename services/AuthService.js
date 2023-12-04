@@ -1,10 +1,12 @@
 import axios from "axios";
 
-import { API_KEY, BASE_URL } from "../secrets";
+
+const API_KEY='';
+const BASE_URL='https://identitytoolkit.googleapis.com/v1/accounts';
 
 const signIn = async (nome, password) => {
   try {
-    await axios.post(`${BASE_URL}signInWithPassword?key=${API_KEY}`, {
+    await axios.post(`${BASE_URL}:signInWithPassword?key=${API_KEY}`, {
       nome,
       password,
       returnSecureToken: true,
@@ -18,7 +20,7 @@ const signIn = async (nome, password) => {
 
 const signUp = async (displayName, nome, email, password) => {
   try {
-    const response = await axios.post(`${BASE_URL}signUp?key=${API_KEY}`, {
+    const response = await axios.post(`${BASE_URL}:signUp?key=${API_KEY}`, {
       nome,
       email,
       password,
@@ -34,7 +36,7 @@ const signUp = async (displayName, nome, email, password) => {
 
 const update = async (idToken, displayName) => {
   try {
-    await axios.post(`${BASE_URL}update?key=${API_KEY}`, {
+    await axios.post(`${BASE_URL}:update?key=${API_KEY}`, {
       idToken,
       displayName,
       returnSecureToken: true,
